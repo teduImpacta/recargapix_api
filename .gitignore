@@ -4,5 +4,5 @@
 yarn-error.log
 *.log
 /coverage
-/docker
 /.vscode
+/docker/data/*
