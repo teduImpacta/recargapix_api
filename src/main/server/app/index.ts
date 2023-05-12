@@ -1,4 +1,5 @@
 import express from 'express'
+import { appRoutes } from '../routes'
 
 const app = express()
 
@@ -25,5 +26,7 @@ app.use((_, res, next) => {
     res.set('surrogate-control', 'no-store')
     next()
 })
+
+appRoutes(app)
 
 export { app }

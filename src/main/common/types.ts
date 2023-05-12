@@ -6,7 +6,7 @@ export type Response<Data> = {
 }
 
 export interface IController {
-    handler: (...rest: unknown[]) => Promise<Response<unknown>>
+    handler: (req: Request) => Promise<Response<unknown>>
 }
 
 export interface IService {
