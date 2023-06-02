@@ -1,6 +1,7 @@
 import { BaseEntity } from '../../../main/common'
 import { Column, Entity, OneToMany } from 'typeorm'
 import { CarrierValue } from './CarrierValue'
+import { Recharge } from '../../recharge/entity/Recharge'
 
 @Entity()
 export class Carrier extends BaseEntity {
@@ -18,4 +19,10 @@ export class Carrier extends BaseEntity {
         eager: true
     })
     values: CarrierValue[]
+
+    @OneToMany(() => Recharge, recharge => recharge.carrier, {
+        nullable: true,
+        onDelete: 'SET NULL'
+    })
+    recharge?: Recharge[]
 }
