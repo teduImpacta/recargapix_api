@@ -1,24 +1,32 @@
 import { DataSource } from 'typeorm'
 import { internals } from '../config/internals'
 import { Product } from '../../domain/product/entity/Product'
-import { CreateProduct1683258049754 } from './migrations/1683258049754-CreateProduct'
 import { Carrier } from '../../domain/carrier/entity/Carrier'
 import { CarrierValue } from '../../domain/carrier/entity/CarrierValue'
-import { CreateCarrierValues1683855203106 } from './migrations/1683855203106-CreateCarrierValues'
 import { Recharge } from '../../domain/recharge/entity/Recharge'
 import { Payment } from '../../domain/payment/entity/Payment'
 import { Statement } from '../../domain/payment/entity/Statement'
+import { ConnectionOptions } from 'typeorm-seeding'
+import { GenerateEntities1693262449107 } from './migrations/1693262449107-GenerateEntities'
 
-export const context = new DataSource({
+const options: ConnectionOptions = {
     type: 'postgres',
     host: internals.dbHost,
     port: internals.dbPort,
     username: internals.dbUsername,
     password: internals.dbPassword,
     database: internals.dbName,
-    migrations: [CreateProduct1683258049754, CreateCarrierValues1683855203106],
+    migrations: [GenerateEntities1693262449107],
     entities: [Product, Carrier, CarrierValue, Statement, Payment, Recharge],
-    uuidExtension: 'uuid-ossp'
-})
+    uuidExtension: 'uuid-ossp',
+    factories: [],
+    seeds: ['src/main/database/seeding/**/*.seed{.ts,.js}']
+}
+
+export const context = new DataSource(options)
 
 export type Context = typeof context
+
+export default {
+    ...options
+}

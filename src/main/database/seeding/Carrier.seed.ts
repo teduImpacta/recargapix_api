@@ -1,5 +1,5 @@
-import { Carrier } from '@/domain/carrier/entity/Carrier'
-import { CarrierValue } from '@/domain/carrier/entity/CarrierValue'
+import { Carrier } from '../../../domain/carrier/entity/Carrier'
+import { CarrierValue } from '../../../domain/carrier/entity/CarrierValue'
 import { Connection } from 'typeorm'
 import { Factory, Seeder } from 'typeorm-seeding'
 import { carriersData } from './data'

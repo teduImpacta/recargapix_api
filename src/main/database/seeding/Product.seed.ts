@@ -1,5 +1,5 @@
-import { Product } from '@/domain/product/entity/Product'
-import { ProductType } from '@/main/common'
+import { Product } from '../../../domain/product/entity/Product'
+import { ProductType } from '../../common'
 import { Connection } from 'typeorm'
 import { Factory, Seeder } from 'typeorm-seeding'
 
