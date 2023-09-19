@@ -8,6 +8,8 @@ import { Payment } from '../../domain/payment/entity/Payment'
 import { Statement } from '../../domain/payment/entity/Statement'
 import { ConnectionOptions } from 'typeorm-seeding'
 import { GenerateEntities1693262449107 } from './migrations/1693262449107-GenerateEntities'
+import { Consultor } from '../../domain/recharge/entity/Consultor'
+import { CreateConsultorEntity1695077485055 } from './migrations/1695077485055-CreateConsultorEntity'
 
 const options: ConnectionOptions = {
     type: 'postgres',
@@ -16,8 +18,19 @@ const options: ConnectionOptions = {
     username: internals.dbUsername,
     password: internals.dbPassword,
     database: internals.dbName,
-    migrations: [GenerateEntities1693262449107],
-    entities: [Product, Carrier, CarrierValue, Statement, Payment, Recharge],
+    migrations: [
+        GenerateEntities1693262449107,
+        CreateConsultorEntity1695077485055
+    ],
+    entities: [
+        Product,
+        Carrier,
+        CarrierValue,
+        Statement,
+        Payment,
+        Recharge,
+        Consultor
+    ],
     uuidExtension: 'uuid-ossp',
     factories: [],
     seeds: ['src/main/database/seeding/**/*.seed{.ts,.js}']

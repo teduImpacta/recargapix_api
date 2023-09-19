@@ -3,7 +3,9 @@ import {
     CreateRechargeDto,
     HttpHelper,
     IController,
-    Request
+    Request,
+    isValidPhone,
+    onlyDigits
 } from '@/main/common'
 import { CreateRechargeService } from '../services/CreateRechargeService'
 import { inject, injectable } from 'tsyringe'
@@ -20,13 +22,13 @@ export class CreateRechargeController implements IController {
             const { carrierId, phone, product, value } =
                 req.body as CreateRechargeDto
 
-            if (!this.isValidPhone(phone))
+            if (!isValidPhone(phone))
                 throw new AppError('Informe um telefone válido', 400)
 
             return HttpHelper.ok(
                 await this.createRechargeService.execute({
                     carrierId,
-                    phone: this.onlyDigits(phone),
+                    phone: onlyDigits(phone),
                     product,
                     value
                 })
@@ -34,21 +36,5 @@ export class CreateRechargeController implements IController {
         } catch (err) {
             return HttpHelper.error(err)
         }
-    }
-
-    private isValidPhone(phone: string) {
-        const phoneLengthWithDddAndPrefix = 13
-
-        if (
-            !phone ||
-            typeof phone !== 'string' ||
-            this.onlyDigits(phone).length !== phoneLengthWithDddAndPrefix
-        )
-            return false
-        return true
-    }
-
-    private onlyDigits(value: unknown) {
-        return String(value).replace(/\^[0-9]/g, '')
     }
 }
