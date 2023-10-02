@@ -7,9 +7,9 @@ import { Recharge } from '../../domain/recharge/entity/Recharge'
 import { Payment } from '../../domain/payment/entity/Payment'
 import { Statement } from '../../domain/payment/entity/Statement'
 import { ConnectionOptions } from 'typeorm-seeding'
-import { GenerateEntities1693262449107 } from './migrations/1693262449107-GenerateEntities'
 import { Consultor } from '../../domain/recharge/entity/Consultor'
-import { CreateConsultorEntity1695077485055 } from './migrations/1695077485055-CreateConsultorEntity'
+import { GiftCard } from '../../domain/product/entity/GiftCard'
+import { CreateEntities1696207053915 } from './migrations/1696207053915-CreateEntities'
 
 const options: ConnectionOptions = {
     type: 'postgres',
@@ -18,10 +18,7 @@ const options: ConnectionOptions = {
     username: internals.dbUsername,
     password: internals.dbPassword,
     database: internals.dbName,
-    migrations: [
-        GenerateEntities1693262449107,
-        CreateConsultorEntity1695077485055
-    ],
+    migrations: [CreateEntities1696207053915],
     entities: [
         Product,
         Carrier,
@@ -29,7 +26,8 @@ const options: ConnectionOptions = {
         Statement,
         Payment,
         Recharge,
-        Consultor
+        Consultor,
+        GiftCard
     ],
     uuidExtension: 'uuid-ossp',
     factories: [],

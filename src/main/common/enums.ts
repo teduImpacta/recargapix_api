@@ -10,3 +10,11 @@ export enum RechargeStatus {
     paid = 'Paid',
     canceled = 'Canceled'
 }
+
+export enum GiftCardCategory {
+    store = 'Loja de aplicativos',
+    audiovisual = 'TV, Som e Vídeo',
+    services = 'Serviços de Conveniência',
+    software = 'Software',
+    games = 'Jogos e Diversão'
+}
