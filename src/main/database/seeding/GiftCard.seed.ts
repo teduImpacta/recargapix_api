@@ -1,15 +1,22 @@
+import { GiftCardValue } from '../../../domain/product/entity/GiftCardValue'
 import { GiftCard } from '../../../domain/product/entity/GiftCard'
 import { GiftCardCategory } from '../../common'
 import { Connection } from 'typeorm'
 import { Factory, Seeder } from 'typeorm-seeding'
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity'
 
 export default class CreateGiftCards implements Seeder {
     public async run(factory: Factory, connection: Connection): Promise<void> {
-        await connection
+        const giftCard = await connection
             .createQueryBuilder()
             .insert()
             .into(GiftCard)
             .values([
+                {
+                    name: 'Sky',
+                    logo: 'https://logodownload.org/wp-content/uploads/2014/09/sky-logo-0.png',
+                    category: GiftCardCategory.audiovisual
+                },
                 {
                     name: 'Spotify',
                     logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Spotify_icon.svg/232px-Spotify_icon.svg.png',
@@ -71,6 +78,63 @@ export default class CreateGiftCards implements Seeder {
                     category: GiftCardCategory.services
                 }
             ])
+            .execute()
+
+        const values = [
+            {
+                value: 10,
+                description: 'REC SMART3D + TL'
+            },
+            {
+                value: 15,
+                description: 'REC NEW MASTER'
+            },
+            {
+                value: 20,
+                description: 'REC NEW MASTER 0'
+            },
+            {
+                value: 25,
+                description: 'REC SMART - 15 D'
+            },
+            {
+                value: 30,
+                description: 'REC SMART7D+ FUT'
+            },
+            {
+                value: 35,
+                description: 'REC NEW MASTER 7'
+            },
+            {
+                value: 40,
+                description: 'REC SMART15D+ FU'
+            }
+        ]
+
+        await connection
+            .createQueryBuilder()
+            .insert()
+            .into(GiftCardValue)
+            .values(
+                giftCard.identifiers.reduce(
+                    (
+                        arr: QueryDeepPartialEntity<GiftCardValue>[],
+                        id,
+                        position
+                    ) => {
+                        values.forEach(({ description, value }) => {
+                            arr.push({
+                                value,
+                                giftcard: id,
+                                description: position > 0 ? '' : description
+                            })
+                        })
+
+                        return arr
+                    },
+                    []
+                )
+            )
             .execute()
     }
 }

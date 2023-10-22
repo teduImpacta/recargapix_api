@@ -9,8 +9,9 @@ export type Filters<Entity extends BaseEntity> = Partial<{
 
 export type CreateRechargeDto = {
     value: number
-    carrierId: string
-    phone: string
+    referenceId: string
+    phone?: string
+    email?: string
     product: ProductType
 }
 

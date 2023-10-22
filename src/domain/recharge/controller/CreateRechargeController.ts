@@ -3,6 +3,7 @@ import {
     CreateRechargeDto,
     HttpHelper,
     IController,
+    ProductType,
     Request,
     isValidPhone,
     onlyDigits
@@ -19,18 +20,22 @@ export class CreateRechargeController implements IController {
 
     public async handler(req: Request) {
         try {
-            const { carrierId, phone, product, value } =
+            const { referenceId, phone, product, value, email } =
                 req.body as CreateRechargeDto
 
-            if (!isValidPhone(phone))
+            if (product === ProductType.cellphone && !isValidPhone(phone))
                 throw new AppError('Informe um telefone válido', 400)
+
+            if (product === ProductType.store && !(email || phone))
+                throw new AppError('Informe um telefone ou email', 400)
 
             return HttpHelper.ok(
                 await this.createRechargeService.execute({
-                    carrierId,
+                    referenceId,
                     phone: onlyDigits(phone),
                     product,
-                    value
+                    value,
+                    email
                 })
             )
         } catch (err) {

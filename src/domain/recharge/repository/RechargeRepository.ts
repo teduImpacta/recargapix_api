@@ -1,12 +1,12 @@
 import { BaseRepository, ProductType, RechargeStatus } from '@/main/common'
 import { Recharge } from '../entity/Recharge'
-import { Carrier } from '@/domain/carrier/entity/Carrier'
 
 type CreateRecharge = {
     value: number
-    carrier: Carrier
-    phone: string
+    phone?: string
+    email?: string
     product: ProductType
+    referenceId: string
 }
 
 export class RechargeRepository extends BaseRepository<Recharge> {
@@ -15,17 +15,19 @@ export class RechargeRepository extends BaseRepository<Recharge> {
     }
 
     public async create({
-        carrier,
         phone,
         product,
-        value
+        value,
+        referenceId,
+        email
     }: CreateRecharge): Promise<string> {
         const recharge = this.repository.create({
             phone,
             product,
             value,
-            carrier,
-            status: RechargeStatus.pending
+            status: RechargeStatus.pending,
+            email,
+            referenceId
         })
 
         return (await this.save(recharge))?.id

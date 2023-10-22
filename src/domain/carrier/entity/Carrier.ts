@@ -20,7 +20,7 @@ export class Carrier extends BaseEntity {
     })
     values: CarrierValue[]
 
-    @OneToMany(() => Recharge, recharge => recharge.carrier, {
+    @OneToMany(() => Recharge, recharge => recharge.id, {
         nullable: true,
         onDelete: 'SET NULL'
     })

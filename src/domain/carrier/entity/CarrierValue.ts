@@ -2,7 +2,7 @@ import { BaseEntity } from '../../../main/common'
 import { Column, Entity, ManyToOne } from 'typeorm'
 import { Carrier } from './Carrier'
 
-@Entity('values')
+@Entity('carrier_value')
 export class CarrierValue extends BaseEntity {
     @Column({
         type: 'float'

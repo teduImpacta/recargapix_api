@@ -1,6 +1,5 @@
-import { Carrier } from '../../carrier/entity/Carrier'
 import { BaseEntity, ProductType, RechargeStatus } from '../../../main/common'
-import { Column, Entity, OneToMany, OneToOne } from 'typeorm'
+import { Column, Entity, OneToMany } from 'typeorm'
 import { Payment } from '../../payment/entity/Payment'
 
 @Entity()
@@ -12,18 +11,14 @@ export class Recharge extends BaseEntity {
     })
     payment?: Payment[]
 
-    @OneToOne(() => Carrier, carrier => carrier.recharge, {
-        eager: true,
-        onDelete: 'SET NULL'
-    })
-    carrier: Carrier
-
     @Column('enum', {
         enum: RechargeStatus
     })
     status: RechargeStatus
 
-    @Column()
+    @Column({
+        nullable: true
+    })
     phone: string
 
     @Column('enum', {
@@ -33,4 +28,15 @@ export class Recharge extends BaseEntity {
 
     @Column()
     value: number
+
+    @Column({
+        nullable: false,
+        name: 'reference_id'
+    })
+    referenceId: string
+
+    @Column({
+        nullable: true
+    })
+    email: string
 }
