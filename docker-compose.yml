@@ -1,16 +1,16 @@
 version: '3'
 networks:
-  recargapix:
+    recargapix:
 services:
-  bd:
-    container_name: recargapix_db
-    image: postgres
-    restart: always
-    env_file:
-     - .env
-    volumes:
-      - ./docker/data:/var/lib/postgresql/data
-    ports:
-      - '5432:5432'
-    networks:
-      - recargapix
+    bd:
+        container_name: recargapix_db
+        image: postgres:15
+        restart: always
+        env_file:
+            - .env
+        volumes:
+            - ./docker/data:/var/lib/postgresql/data
+        ports:
+            - '5432:5432'
+        networks:
+            - recargapix

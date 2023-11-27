@@ -76,6 +76,11 @@ export default class CreateGiftCards implements Seeder {
                     name: 'Telesena',
                     logo: 'https://devplace.com.br/wp-content/uploads/2016/05/logo-telesena-210x210.png',
                     category: GiftCardCategory.services
+                },
+                {
+                    name: 'Ifood',
+                    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/IFood_logo.svg/2560px-IFood_logo.svg.png',
+                    category: GiftCardCategory.services
                 }
             ])
             .execute()
@@ -88,6 +93,10 @@ export default class CreateGiftCards implements Seeder {
             {
                 value: 15,
                 description: 'REC NEW MASTER'
+            },
+            {
+                value: 17,
+                description: 'REC NEW MASTER 1'
             },
             {
                 value: 20,
